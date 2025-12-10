@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TravelMaps — Personal Tracker</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Map Topbar -->
+  <header class="topbar map-topbar">
+    <!-- Search bar centered -->
+    <div class="search-wrapper">
+      <input id="search" type="search" placeholder="Search places..." autocomplete="off" />
+      <button id="searchButton" class="search-btn" aria-label="Search">🔍</button>
+      <div id="suggestions" class="results-card" aria-hidden="true"></div>
+    </div>
+
+    <!-- Buttons on the right -->
+    <div class="spacer"></div>
+    <button id="sidebarToggle" class="icon-btn" aria-label="Open sidebar">☰</button>
+    <button id="locationBtn" class="icon-btn" aria-label="Go to my location">📍</button>
+    <button id="exportBtn" class="secondary">Export</button>
+    <button id="clearAllBtn" class="danger">Clear All</button>
+  </header>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h3>Saved Places</h3>
+      <button id="closeSidebar" class="icon-btn">✕</button>
+    </div>
+    <div id="savedList" class="saved-list"></div>
+    <div class="sidebar-footer">
+      <button id="exportBtnSidebar" class="secondary">Export JSON</button>
+      <button id="clearAllBtnSidebar" class="danger">Clear All</button>
+    </div>
+  </aside>
+
+  <main id="main">
+    <section id="loginPage" class="page active">
+      <div class="login-card">
+        <h2>TravelMaps</h2>
+        <form id="loginForm" autocomplete="off">
+          <label>
+            <span>Username</span>
+            <input id="username" name="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input id="password" name="password" type="password" required />
+          </label>
+          <button type="submit" class="primary">Log in (demo)</button>
+          <p class="muted">Demo credentials: <strong>test123</strong> / <strong>password</strong></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="mapPage" class="page">
+      <div id="map" class="map"></div>
+    </section>
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>

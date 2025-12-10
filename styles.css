@@ -1,0 +1,283 @@
+ :root{
+  --bg:#0b0d10; --panel:#0f1114; --muted:#9aa3ad; --accent:#3ea6ff;
+  --glass: rgba(255,255,255,0.03); --card:#0f1316;
+}
+*{box-sizing:border-box}
+html,body,#main{height:100%}
+body{margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto; background:var(--bg); color:#e6eef6}
+
+/* Map Topbar - New Layout */
+.map-topbar {
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  position: fixed;
+  z-index: 1400;
+}
+
+.topbar-left,
+.topbar-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.map-topbar .search-wrapper {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Search bar */
+#search{
+  flex:1;
+  height:44px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.04);
+  padding:0 16px;
+  color:#e6eef6;
+  outline:none;
+  font-size:15px;
+  box-shadow:0 6px 18px rgba(2,6,23,0.6);
+}
+#search::placeholder{color:var(--muted)}
+
+.search-btn{
+  height:40px;
+  width:48px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  color:#071428;
+  cursor:pointer;
+  font-weight:600;
+  flex-shrink: 0;
+}
+
+.results-card{
+  position:absolute;
+  top:54px;
+  left:0;
+  right:0;
+  max-height:360px;
+  overflow:auto;
+  background:linear-gradient(180deg, rgba(12,14,16,0.98), rgba(8,9,11,0.98));
+  border-radius:14px;
+  margin-top:8px;
+  box-shadow:0 10px 30px rgba(2,6,23,0.7);
+  border:1px solid rgba(255,255,255,0.03);
+  padding:8px;
+  display:none;
+  z-index:1410;
+}
+
+.result-item{
+  display:flex;
+  gap:12px;
+  padding:10px;
+  border-radius:10px;
+  align-items:center;
+  cursor:pointer;
+  transition:background .12s;
+}
+.result-item:hover{background: rgba(255,255,255,0.02)}
+.result-title{font-size:15px;font-weight:600}
+.result-sub{font-size:13px;color:var(--muted)}
+
+/* Buttons */
+.icon-btn{
+  height:44px;
+  width:44px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.04);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:#e6eef6;
+  cursor:pointer;
+  font-size:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .15s;
+  box-shadow:0 4px 12px rgba(2,6,23,0.5);
+}
+.icon-btn:hover{background:rgba(255,255,255,0.04)}
+
+.primary{
+  background:var(--accent);
+  border:none;
+  color:#071428;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  transition:opacity .15s;
+}
+.primary:hover{opacity:0.9}
+
+.secondary{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.04);
+  color:var(--muted);
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+  white-space:nowrap;
+  transition:background .15s;
+  box-shadow:0 4px 12px rgba(2,6,23,0.5);
+}
+.secondary:hover{background:rgba(255,255,255,0.02)}
+
+.danger{
+  background:transparent;
+  border:1px solid rgba(255,60,60,0.16);
+  color:#ff6961;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+  white-space:nowrap;
+  transition:background .15s;
+  box-shadow:0 4px 12px rgba(2,6,23,0.5);
+}
+.danger:hover{background:rgba(255,60,60,0.05)}
+
+/* Responsive adjustments */
+@media (max-width:900px){
+  .map-topbar{
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  
+  .topbar-left{
+    order:1;
+  }
+  
+  .search-wrapper{
+    order:2;
+    width:100%;
+    max-width:none;
+  }
+  
+  .topbar-right{
+    order:3;
+  }
+}
+
+@media (max-width:640px){
+  .topbar-left,
+  .topbar-right{
+    gap:6px;
+  }
+  
+  .secondary,
+  .danger{
+    font-size:13px;
+    padding:10px 12px;
+  }
+}
+
+/* Sidebar & saved list */
+.sidebar{
+  position:fixed;
+  top:12px;
+  left:12px;
+  bottom:12px;
+  width:340px;
+  transform:translateX(-380px);
+  transition:transform 260ms ease;
+  background:linear-gradient(180deg,var(--panel), rgba(8,9,11,0.98));
+  border-radius:12px;
+  z-index:1500;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 12px 40px rgba(2,6,23,0.8);
+}
+.sidebar.open{transform:translateX(0)}
+.sidebar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.saved-list{
+  padding:12px;
+  overflow:auto;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.saved-card{
+  background:var(--card);
+  padding:10px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.02);
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+.saved-left{flex:1}
+.saved-title{font-weight:700}
+.saved-sub{font-size:13px;color:var(--muted)}
+.saved-actions{display:flex;gap:8px}
+.small-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.03);
+  padding:6px 8px;
+  border-radius:8px;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:13px;
+  transition:background .15s;
+}
+.small-btn:hover{background:rgba(255,255,255,0.02)}
+
+.sidebar-footer{
+  padding:10px;
+  border-top:1px solid rgba(255,255,255,0.02);
+  display:flex;
+  gap:8px;
+  justify-content:space-between;
+}
+
+/* Pages & map */
+.page{display:none;height:100%}
+.page.active{display:block;height:100%}
+.map{height:100vh;width:100vw}
+
+/* Login card */
+.login-card{
+  width:360px;
+  margin:120px auto;
+  padding:22px;
+  border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 12px 40px rgba(2,6,23,0.7);
+  text-align:center;
+}
+.login-card h2{margin:0 0 8px}
+.login-card label{display:block;text-align:left;margin:10px 0}
+.login-card input{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.02);
+  background:transparent;
+  color:inherit;
+  outline:none;
+}
+.login-card input:focus{border-color:rgba(255,255,255,0.08)}
+.login-card .primary{margin-top:8px; width:100%}
